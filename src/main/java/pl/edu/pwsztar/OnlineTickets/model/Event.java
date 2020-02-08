@@ -2,6 +2,7 @@ package pl.edu.pwsztar.OnlineTickets.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
 public class Event {
 
     @GeneratedValue
@@ -55,4 +57,15 @@ public class Event {
 
     @ManyToMany(mappedBy = "ownedTickets")
     Set<Account> accounts;
+
+    public Event(String name, String description, String imageUrl, Calendar date, String city, boolean active, Double ticketPrice, int ticketLimit) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.date = date;
+        this.city = city;
+        this.active = active;
+        this.ticketPrice = ticketPrice;
+        this.ticketLimit = ticketLimit;
+    }
 }

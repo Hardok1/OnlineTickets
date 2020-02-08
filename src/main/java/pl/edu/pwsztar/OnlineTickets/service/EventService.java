@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EventService {
 
-    List<EventDTO> getAll();
+    List<EventDTO> getAllActiveEvents();
 
     EventDTO getEvent(Long id);
 
