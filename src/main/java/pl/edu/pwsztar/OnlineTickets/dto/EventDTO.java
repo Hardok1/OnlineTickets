@@ -17,4 +17,5 @@ public class EventDTO {
     boolean active;
     Double ticketPrice;
     int ticketLimit;
+    int ticketsLeft;
 }

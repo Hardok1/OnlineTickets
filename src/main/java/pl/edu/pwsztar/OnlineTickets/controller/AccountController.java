@@ -37,7 +37,11 @@ public class AccountController {
 
     @GetMapping("myTickets")
     public ResponseEntity<List<TicketDTO>> getAccountTickets(Authentication authentication){
-        return null;
+        List<TicketDTO> ticketDTOList = accountService.getAccountTickets(authentication.getName());
+        if (ticketDTOList.size() > 0) {
+            return new ResponseEntity<>(ticketDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    
 }

@@ -9,5 +9,9 @@ public interface AccountService {
 
     boolean signUp(SignUpDTO signUpDTO);
 
-    List<TicketDTO> getAccountTickets();
+    void createAdmin(String password);
+
+    List<TicketDTO> getAccountTickets(String login);
+
+    boolean isAdmin(String login);
 }

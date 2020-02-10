@@ -53,6 +53,14 @@ public class Account {
         this.admin = false;
     }
 
+    public void addTicket(Event event){
+        ownedTickets.add(event);
+        event.getBoughtTickets().add(this);
+    }
+
+    public void addTicket2(Event event){
+        ownedTickets.add(event);
+    }
 
 
 }

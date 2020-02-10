@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class TicketDTO {
     private String eventName;
-    private String eventId;
+    private Long eventId;
 }

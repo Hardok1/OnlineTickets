@@ -21,40 +21,52 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("getAll")
-    public ResponseEntity<List<EventDTO>> getAll() {
-
-        return new ResponseEntity<>(eventService.getAllActiveEvents(), HttpStatus.OK);
+    @GetMapping("getAllActive")
+    public ResponseEntity<List<EventDTO>> getAllActiveEvents() {
+        List<EventDTO> eventDTOList = eventService.getAllActiveEvents();
+        if (eventDTOList.size() > 0) {
+            return new ResponseEntity<>(eventDTOList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("{eventId}")
     public ResponseEntity<EventDTO> getEvent(@PathVariable("eventId") Long eventId) {
-        return null;
+        if (eventService.getEvent(eventId) == null){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(eventService.getEvent(eventId), HttpStatus.OK);
     }
 
     @PostMapping("add")
-    public ResponseEntity<?> addEvent(Authentication authentication, EventDTO eventDTO) {
-        return null;
+    public ResponseEntity<?> addEvent(Authentication authentication, @RequestBody EventDTO eventDTO) {
+        if (eventService.addEvent(authentication.getName(), eventDTO)){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @PutMapping("edit")
-    public ResponseEntity<?> editEvent(Authentication authentication, EventDTO eventDTO){
-
-        return null;
+    public ResponseEntity<?> editEvent(Authentication authentication, @RequestBody EventDTO eventDTO){
+        if (eventService.editEvent(authentication.getName(), eventDTO)){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @DeleteMapping("delete/{eventId}")
     public ResponseEntity<?> deleteEvent(Authentication authentication, @PathVariable("eventId") Long eventId){
-        return null;
+        if (eventService.deleteEvent(authentication.getName(),eventId)){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @PostMapping("buyTicket/{eventId}")
     public ResponseEntity<?> buyTicket(Authentication authentication, @PathVariable("eventId") Long eventId){
-        return null;
-    }
-
-    @GetMapping("howManyTicketsLeft/{eventId}")
-    public ResponseEntity<?> getHowManyTicketsLeft(@PathVariable("eventId") Long eventId){
-        return null;
+        if (eventService.buyTicket(authentication.getName(), eventId)){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

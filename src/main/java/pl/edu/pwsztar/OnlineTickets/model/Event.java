@@ -56,7 +56,7 @@ public class Event {
     int ticketLimit;
 
     @ManyToMany(mappedBy = "ownedTickets")
-    Set<Account> accounts;
+    Set<Account> boughtTickets;
 
     public Event(String name, String description, String imageUrl, Calendar date, String city, boolean active, Double ticketPrice, int ticketLimit) {
         this.name = name;
